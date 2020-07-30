@@ -17,27 +17,27 @@ def banner():
 banner()
 user=int(input("\033[1;32;40m1\033[0m\033[1;33;40m Server \n\033[1;32;40m2\033[0m \033[1;33;40mClient \033[0m \n\033[1;33;40mChoose :\033[0m \033[1;32;40m"))
 if user==1:
-	try:
-		host=sys.argv[1]
-		print(host)
-		port=sys.argv[2]
-		os.system("clear")
-		banner()
-		s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-		s.bind((host,int(port)))
-		s.listen(5)
-		conn,add=s.accept()
-		print(f"\033[1;32;40m connected with {add}")
-		while True:
+	host=sys.argv[1]
+	print(host)
+	port=sys.argv[2]
+	os.system("clear")
+	banner()
+	s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	s.bind((host,int(port)))
+	s.listen(5)
+	conn,add=s.accept()
+	print(f"\033[1;32;40m connected with {add}")
+	while True:
+		try:
 			msg=conn.recv(1024).decode("utf-8")
 			print(msg)
 			s_msg=input("\033[1;33;40mENTER YOUR MESSAGE :\033[0m \033[1;32;40m")
 			conn.send(s_msg.encode("utf-8"))
-	except KeyboardInterrupt:
-		print("\033[1;31;40m ctrl+c for stop\033[0m")
-		break
-	except:
-		pass
+		except KeyboardInterrupt:
+			print("\033[1;31;40m ctrl+c for stop\033[0m")
+			break
+		except:
+			pass
 else:
 	host=sys.argv[1]
 	port=sys.argv[2]
